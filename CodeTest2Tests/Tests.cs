@@ -22,7 +22,7 @@ namespace CodeTest2Tests
                 , new Process(new[] { resources[2] }.ToHashSet())
                 , new Process(new[] { resources[1] }.ToHashSet())
             };
-            Workflow workflow = new(resources.ToHashSet(), processes.ToList());
+            Workflow workflow = new(processes.ToList());
             await workflow.Run();
             Assert.All(processes, process => Assert.True(process.Complete));
             Assert.Equal(2, resources[0].LockNbr);
@@ -47,7 +47,7 @@ namespace CodeTest2Tests
                 return new Process(pResources);
             }
             var processes = Enumerable.Range(0, 10000).Select(_ => RandomProcess()).ToArray();
-            Workflow workflow = new(resources.ToHashSet(), processes.ToList());
+            Workflow workflow = new(processes.ToList());
             await workflow.Run();
             Assert.All(processes, process => Assert.True(process.Complete));
             Assert.Equal(processes.Sum(process => process.Resources.Count), resources.Sum(resource => resource.LockNbr));

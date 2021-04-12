@@ -8,13 +8,11 @@ namespace CodeTest2
 {
     public class Workflow
     {
-        readonly HashSet<Resource> _resources;
         readonly List<Process> _processes;
         Channel<Process> _channel;
 
-        public Workflow(HashSet<Resource> resources, List<Process> processes)
+        public Workflow(List<Process> processes)
         {
-            _resources = resources;
             _processes = processes;
         }
 
