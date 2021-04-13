@@ -17,11 +17,14 @@ namespace CodeTest2
 
         internal void Start(Channel<Process> channel)
         {
-            foreach (var resource in Resources) resource.Acquire();
-            Task.Delay(100);
-            Complete = true;
-            foreach (var resource in Resources) resource.Release();
-            channel.Writer.TryWrite(this);
+            Task.Run(() =>
+            {
+                foreach (var resource in Resources) resource.Acquire();
+                Task.Delay(100);
+                Complete = true;
+                foreach (var resource in Resources) resource.Release();
+                channel.Writer.TryWrite(this);
+            });
         }
     }
 }
